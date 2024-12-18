@@ -1,41 +1,79 @@
-async function fetchGrowData() {
-    try {
-        console.log('Starting to fetch data...');
-        const response = await fetch('https://calis-de-marde-production.up.railway.app/api/grows');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cannabis Grow Assistant</title>
+    <style>
+        /* Your existing CSS here */
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Cannabis Grow Assistant</h1>
+    </header>
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+    <div class="dashboard">
+        <div class="card" id="current-grow">
+            <h3>Current Grow</h3>
+            <p>Loading...</p>
+        </div>
+
+        <div class="card" id="plant-health">
+            <h3>Plant Health</h3>
+            <p>Loading...</p>
+        </div>
+
+        <div class="card" id="upcoming-tasks">
+            <h3>Upcoming Tasks</h3>
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <div class="nav-bar">
+        <a href="#">Dashboard</a>
+        <a href="#">Grows</a>
+        <a href="#">Tasks</a>
+        <a href="#">Community</a>
+    </div>
+
+    <script>
+        async function fetchGrowData() {
+            try {
+                console.log('Starting to fetch data...');
+                const response = await fetch('https://calis-de-marde-production.up.railway.app/api/grows');
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log('Fetched data successfully:', data);
+
+                document.getElementById('current-grow').innerHTML = `
+                    <h3>Current Grow</h3>
+                    <p>Name: ${data.name}</p>
+                    <p>Objective: ${data.objective || 'Not specified'}</p>
+                `;
+
+                document.getElementById('plant-health').innerHTML = `
+                    <h3>Plant Health</h3>
+                    <ul>
+                        ${data.plants.map(plant => `<li>${plant.strain}: ${plant.health}</li>`).join('')}
+                    </ul>
+                `;
+
+                document.getElementById('upcoming-tasks').innerHTML = `
+                    <h3>Upcoming Tasks</h3>
+                    <p>No tasks available.</p>
+                `;
+            } catch (error) {
+                console.error('Error fetching grow data:', error);
+            }
         }
 
-        const data = await response.json();
-        console.log('Fetched data successfully:', data);
+        document.addEventListener('DOMContentLoaded', fetchGrowData);
+    </script>
+</body>
+</html>
 
-        // Update the Current Grow section
-        const currentGrow = document.getElementById('current-grow');
-        currentGrow.innerHTML = `
-            <h3>Current Grow</h3>
-            <p>Name: ${data.name}</p>
-            <p>Objective: ${data.objective || 'Not specified'}</p>
-        `;
-
-        // Update the Plant Health section
-        const plantHealth = document.getElementById('plant-health');
-        plantHealth.innerHTML = `
-            <h3>Plant Health</h3>
-            <ul>
-                ${data.plants.map(plant => `<li>${plant.strain}: ${plant.health}</li>`).join('')}
-            </ul>
-        `;
-
-        // Update Upcoming Tasks section
-        const upcomingTasks = document.getElementById('upcoming-tasks');
-        upcomingTasks.innerHTML = `
-            <h3>Upcoming Tasks</h3>
-            <p>No tasks available.</p>
-        `;
-    } catch (error) {
-        console.error('Error fetching grow data:', error);
-    }
-}
-
-document.addEventListener('DOMContentLoaded', fetchGrowData);
