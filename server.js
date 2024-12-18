@@ -1,10 +1,10 @@
 const express = require('express');
-const cors = require('cors'); // Add this line
+const cors = require('cors'); // Import CORS middleware
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors()); // Add this line
+app.use(cors()); // Enable CORS globally for all routes
 
 app.get('/api/grows', (req, res) => {
     res.json({
