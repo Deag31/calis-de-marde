@@ -5,8 +5,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cannabis Grow Assistant</title>
     <style>
-        /* Your existing CSS here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        header {
+            background-color: #4caf50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .dashboard {
+            padding: 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .card h3 {
+            margin: 0 0 10px;
+        }
+        .card ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .card ul li {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #555;
+        }
+        h3 {
+            color: #333;
+        }
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #4caf50;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+        }
+        .nav-bar a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
     </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Using mock data temporarily...');
+
+            // Mock data to simulate backend response
+            const data = {
+                name: "Summer Grow 2024",
+                plants: [
+                    { strain: "OG Kush", stage: "Vegetative Week 3", type: "Auto", health: "Healthy" },
+                    { strain: "Blue Dream", stage: "Flowering Week 2", type: "Photoperiod", health: "Yellowing leaves" }
+                ],
+                objective: "Max Yield"
+            };
+
+            // Update Current Grow
+            document.getElementById('current-grow').innerHTML = `
+                <div style="background-color: #dcedc8; padding: 15px; border-radius: 10px;">
+                    <h3>Current Grow</h3>
+                    <p><strong>Name:</strong> ${data.name}</p>
+                    <p><strong>Objective:</strong> ${data.objective}</p>
+                </div>
+            `;
+
+            // Update Plant Health
+            document.getElementById('plant-health').innerHTML = `
+                <div style="background-color: #ffecb3; padding: 15px; border-radius: 10px;">
+                    <h3>Plant Health</h3>
+                    <ul>
+                        ${data.plants.map(plant => `<li><strong>${plant.strain}:</strong> ${plant.health}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+
+            // Update Upcoming Tasks
+            document.getElementById('upcoming-tasks').innerHTML = `
+                <div style="background-color: #bbdefb; padding: 15px; border-radius: 10px;">
+                    <h3>Upcoming Tasks</h3>
+                    <p>No tasks available.</p>
+                </div>
+            `;
+        });
+    </script>
 </head>
 <body>
     <header>
@@ -36,42 +128,5 @@
         <a href="#">Tasks</a>
         <a href="#">Community</a>
     </div>
-
-    <script>
-        async function fetchGrowData() {
-    console.log('Using mock data temporarily...');
-
-    // Mock data to simulate backend response
-    const data = {
-        name: "Summer Grow 2024",
-        plants: [
-            { strain: "OG Kush", stage: "Vegetative Week 3", type: "Auto", health: "Healthy" },
-            { strain: "Blue Dream", stage: "Flowering Week 2", type: "Photoperiod", health: "Yellowing leaves" }
-        ]
-    };
-
-    document.getElementById('current-grow').innerHTML = `
-        <h3>Current Grow</h3>
-        <p>Name: ${data.name}</p>
-        <p>Objective: Max Yield</p>
-    `;
-
-    document.getElementById('plant-health').innerHTML = `
-        <h3>Plant Health</h3>
-        <ul>
-            ${data.plants.map(plant => `<li>${plant.strain}: ${plant.health}</li>`).join('')}
-        </ul>
-    `;
-
-    document.getElementById('upcoming-tasks').innerHTML = `
-        <h3>Upcoming Tasks</h3>
-        <p>No tasks available.</p>
-    `;
-}
-
-document.addEventListener('DOMContentLoaded', fetchGrowData);
-
-    </script>
 </body>
 </html>
-

@@ -1,12 +1,15 @@
 {
-  "name": "cannabis-backend",
+  "name": "cannabis-grow-assistant",
   "version": "1.0.0",
-  "main": "server.js",
+  "description": "A cannabis growing assistant app with analytics, community features, and AI analysis.",
+  "main": "index.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "npx serve"
   },
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.18.2"
-  }
+    "serve": "^14.2.0"
+  },
+  "keywords": ["cannabis", "grow", "assistant", "AI", "analytics"],
+  "author": "Your Name",
+  "license": "MIT"
 }
