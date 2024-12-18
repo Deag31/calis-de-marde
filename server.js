@@ -1,13 +1,13 @@
 const express = require('express');
-const cors = require('cors');
+const cors = require('cors'); // Import cors middleware
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Enable CORS for all requests
+// Enable CORS
 app.use(cors());
 
-// API Endpoint for Grow Data
+// Define the API route for grow data
 app.get('/api/grows', (req, res) => {
     res.json({
         name: "Summer Grow 2024",
@@ -18,7 +18,7 @@ app.get('/api/grows', (req, res) => {
     });
 });
 
-// Start the server
+// Start server
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
