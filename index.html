@@ -98,35 +98,62 @@
                 </div>
             `;
         });
-    </script>
-</head>
-<body>
-    <header>
-        <h1>Cannabis Grow Assistant</h1>
-    </header>
+   <script>
+    async function fetchAnalyticsData() {
+        try {
+            const response = await fetch('https://calis-de-marde-production.up.railway.app/api/analytics');
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
 
-    <div class="dashboard">
-        <div class="card" id="current-grow">
-            <h3>Current Grow</h3>
-            <p>Loading...</p>
-        </div>
+            const data = await response.json();
 
-        <div class="card" id="plant-health">
-            <h3>Plant Health</h3>
-            <p>Loading...</p>
-        </div>
+            // Update Current Grow
+            document.getElementById('current-grow').innerHTML = `
+                <div style="background-color: #dcedc8; padding: 15px; border-radius: 10px;">
+                    <h3>Current Grow</h3>
+                    <p><strong>Name:</strong> ${data.name}</p>
+                    <p><strong>Objective:</strong> ${data.objective || "Not specified"}</p>
+                </div>
+            `;
 
-        <div class="card" id="upcoming-tasks">
-            <h3>Upcoming Tasks</h3>
-            <p>Loading...</p>
-        </div>
-    </div>
+            // Update Plant Health
+            document.getElementById('plant-health').innerHTML = `
+                <div style="background-color: #ffecb3; padding: 15px; border-radius: 10px;">
+                    <h3>Plant Health</h3>
+                    <ul>
+                        ${data.plants.map(plant => `
+                            <li><strong>${plant.strain}:</strong> ${plant.health}</li>
+                        `).join('')}
+                    </ul>
+                </div>
+            `;
 
-    <div class="nav-bar">
-        <a href="#">Dashboard</a>
-        <a href="#">Grows</a>
-        <a href="#">Tasks</a>
-        <a href="#">Community</a>
-    </div>
-</body>
-</html>
+            // Update Upcoming Tasks
+            document.getElementById('upcoming-tasks').innerHTML = `
+                <div style="background-color: #bbdefb; padding: 15px; border-radius: 10px;">
+                    <h3>Upcoming Tasks</h3>
+                    <p>No tasks available.</p>
+                </div>
+            `;
+        } catch (error) {
+            console.error('Error fetching analytics data:', error);
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        fetchAnalyticsData();
+
+        // Navigation functionality
+        document.querySelectorAll(".nav-bar a").forEach(link => {
+            link.addEventListener("click", (e) => {
+                e.preventDefault();
+                const tabId = link.getAttribute("data-tab");
+                document.querySelectorAll(".tab-content").forEach(tab => tab.classList.add("hidden"));
+                document.getElementById(tabId).classList.remove("hidden");
+            });
+        });
+    });
+</script>
+
+
