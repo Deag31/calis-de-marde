@@ -1,10 +1,16 @@
 {
-  "name": "cannabis-grow-assistant",
+  "name": "calis-de-marde",
   "version": "1.0.0",
+  "description": "Cannabis grow assistant",
+  "main": "server.js",
   "scripts": {
-    "start": "npx serve"
-  },
+  "start": "serve -s ."
+},
   "dependencies": {
-    "serve": "^14.2.0"
-  }
+    "express": "^4.21.2",
+    "cors": "^2.8.5"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
 }

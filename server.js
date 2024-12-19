@@ -2,23 +2,22 @@ const express = require('express');
 const cors = require('cors');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
-
-// Enable CORS
 app.use(cors());
+app.use(express.json());
 
-// Define the API route
-app.get('/api/grows', (req, res) => {
-    res.json({
-        name: "Summer Grow 2024",
-        plants: [
-            { strain: "OG Kush", stage: "Vegetative Week 3", type: "Auto", health: "Healthy" },
-            { strain: "Blue Dream", stage: "Flowering Week 2", type: "Photoperiod", health: "Yellowing leaves" }
-        ]
-    });
+// Mock Analytics Endpoint
+app.get('/api/analytics', (req, res) => {
+  res.json({
+    temperature: { labels: ['Week 1', 'Week 2'], values: [24, 26] },
+    humidity: { labels: ['Week 1', 'Week 2'], values: [60, 65] },
+    health: { labels: ['Plant 1', 'Plant 2'], values: [80, 50] },
+    plants: [
+      { name: 'OG Kush', type: 'indica', healthScore: 85 },
+      { name: 'Blue Dream', type: 'sativa', healthScore: 45 }
+    ]
+  });
 });
 
 // Start the server
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
