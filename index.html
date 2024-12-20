@@ -57,104 +57,81 @@
             font-size: 16px;
         }
     </style>
+</head>
+<body>
+    <header>
+        <h1>Cannabis Grow Assistant</h1>
+    </header>
+
+    <div class="dashboard">
+        <div class="card" id="current-grow">
+            <h3>Current Grow</h3>
+            <p>Loading...</p>
+        </div>
+
+        <div class="card" id="plant-health">
+            <h3>Plant Health</h3>
+            <p>Loading...</p>
+        </div>
+
+        <div class="card" id="upcoming-tasks">
+            <h3>Upcoming Tasks</h3>
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <div class="nav-bar">
+        <a href="#">Dashboard</a>
+        <a href="#">Grows</a>
+        <a href="#">Tasks</a>
+        <a href="#">Community</a>
+    </div>
+
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log('Using mock data temporarily...');
+        async function fetchAnalyticsData() {
+            try {
+                const response = await fetch('http://localhost:3000/api/analytics'); // Replace with deployed URL when testing live
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
 
-            // Mock data to simulate backend response
-            const data = {
-                name: "Summer Grow 2024",
-                plants: [
-                    { strain: "OG Kush", stage: "Vegetative Week 3", type: "Auto", health: "Healthy" },
-                    { strain: "Blue Dream", stage: "Flowering Week 2", type: "Photoperiod", health: "Yellowing leaves" }
-                ],
-                objective: "Max Yield"
-            };
+                const data = await response.json();
 
-            // Update Current Grow
-            document.getElementById('current-grow').innerHTML = `
-                <div style="background-color: #dcedc8; padding: 15px; border-radius: 10px;">
-                    <h3>Current Grow</h3>
-                    <p><strong>Name:</strong> ${data.name}</p>
-                    <p><strong>Objective:</strong> ${data.objective}</p>
-                </div>
-            `;
+                // Update Current Grow section
+                document.getElementById('current-grow').innerHTML = `
+                    <div style="background-color: #dcedc8; padding: 15px; border-radius: 10px;">
+                        <h3>Current Grow</h3>
+                        <p><strong>Name:</strong> ${data.name}</p>
+                        <p><strong>Objective:</strong> ${data.objective}</p>
+                    </div>
+                `;
 
-            // Update Plant Health
-            document.getElementById('plant-health').innerHTML = `
-                <div style="background-color: #ffecb3; padding: 15px; border-radius: 10px;">
-                    <h3>Plant Health</h3>
-                    <ul>
-                        ${data.plants.map(plant => `<li><strong>${plant.strain}:</strong> ${plant.health}</li>`).join('')}
-                    </ul>
-                </div>
-            `;
+                // Update Plant Health section
+                document.getElementById('plant-health').innerHTML = `
+                    <div style="background-color: #ffecb3; padding: 15px; border-radius: 10px;">
+                        <h3>Plant Health</h3>
+                        <ul>
+                            ${data.plants.map(plant => `<li><strong>${plant.name}:</strong> ${plant.type} - Health Score: ${plant.healthScore}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
 
-            // Update Upcoming Tasks
-            document.getElementById('upcoming-tasks').innerHTML = `
-                <div style="background-color: #bbdefb; padding: 15px; border-radius: 10px;">
-                    <h3>Upcoming Tasks</h3>
-                    <p>No tasks available.</p>
-                </div>
-            `;
-        });
-   <script>
-    async function fetchAnalyticsData() {
-        try {
-            const response = await fetch('https://calis-de-marde-production.up.railway.app/api/analytics');
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+                // Update Upcoming Tasks section
+                document.getElementById('upcoming-tasks').innerHTML = `
+                    <div style="background-color: #bbdefb; padding: 15px; border-radius: 10px;">
+                        <h3>Upcoming Tasks</h3>
+                        <p>No tasks available.</p>
+                    </div>
+                `;
+            } catch (error) {
+                console.error('Error fetching analytics data:', error);
             }
-
-            const data = await response.json();
-
-            // Update Current Grow
-            document.getElementById('current-grow').innerHTML = `
-                <div style="background-color: #dcedc8; padding: 15px; border-radius: 10px;">
-                    <h3>Current Grow</h3>
-                    <p><strong>Name:</strong> ${data.name}</p>
-                    <p><strong>Objective:</strong> ${data.objective || "Not specified"}</p>
-                </div>
-            `;
-
-            // Update Plant Health
-            document.getElementById('plant-health').innerHTML = `
-                <div style="background-color: #ffecb3; padding: 15px; border-radius: 10px;">
-                    <h3>Plant Health</h3>
-                    <ul>
-                        ${data.plants.map(plant => `
-                            <li><strong>${plant.strain}:</strong> ${plant.health}</li>
-                        `).join('')}
-                    </ul>
-                </div>
-            `;
-
-            // Update Upcoming Tasks
-            document.getElementById('upcoming-tasks').innerHTML = `
-                <div style="background-color: #bbdefb; padding: 15px; border-radius: 10px;">
-                    <h3>Upcoming Tasks</h3>
-                    <p>No tasks available.</p>
-                </div>
-            `;
-        } catch (error) {
-            console.error('Error fetching analytics data:', error);
         }
-    }
 
-    document.addEventListener("DOMContentLoaded", () => {
-        fetchAnalyticsData();
+        document.addEventListener("DOMContentLoaded", fetchAnalyticsData);
+    </script>
+</body>
+</html>
 
-        // Navigation functionality
-        document.querySelectorAll(".nav-bar a").forEach(link => {
-            link.addEventListener("click", (e) => {
-                e.preventDefault();
-                const tabId = link.getAttribute("data-tab");
-                document.querySelectorAll(".tab-content").forEach(tab => tab.classList.add("hidden"));
-                document.getElementById(tabId).classList.remove("hidden");
-            });
-        });
-    });
-</script>
 
 
