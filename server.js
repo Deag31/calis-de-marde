@@ -7,7 +7,6 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
 
-// Mock analytics data
 app.get("/api/analytics", (req, res) => {
     res.json({
         temperature: { labels: ["Week 1", "Week 2"], values: [22, 25] },
@@ -20,8 +19,6 @@ app.get("/api/analytics", (req, res) => {
     });
 });
 
-// Start the server
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
-
