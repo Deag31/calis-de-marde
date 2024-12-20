@@ -1,0 +1,40 @@
+[
+    {
+        "name": "Amnesia Haze",
+        "genetics": "Sativa",
+        "thc_content": "22%",
+        "cbd_content": "0.8%",
+        "effects": [
+            "Euphoric",
+            "Energetic",
+            "Uplifting"
+        ],
+        "flavors": [
+            "Citrus",
+            "Earthy",
+            "Lemon"
+        ],
+        "grow_difficulty": "Difficult",
+        "flowering_time": "12 weeks",
+        "yield": "High"
+    },
+    {
+        "name": "Northern Lights",
+        "genetics": "Indica",
+        "thc_content": "18%",
+        "cbd_content": "Low",
+        "effects": [
+            "Relaxed",
+            "Happy",
+            "Sleepy"
+        ],
+        "flavors": [
+            "Pine",
+            "Earthy",
+            "Sweet"
+        ],
+        "grow_difficulty": "Easy",
+        "flowering_time": "7-8 weeks",
+        "yield": "High"
+    }
+]
