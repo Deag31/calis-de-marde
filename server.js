@@ -1,35 +1,55 @@
-const express = require("express");
-const cors = require("cors");
-
-// Initialize the Express app
+const express = require('express');
+const cors = require('cors');
 const app = express();
+const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
-// Port for the server
-const PORT = process.env.PORT || 3000;
-
-// Analytics API endpoint
-app.get("/api/analytics", (req, res) => {
+// Endpoint: Current Grow
+app.get('/api/current-grow', (req, res) => {
     res.json({
-        temperature: { labels: ["Week 1", "Week 2"], values: [22, 25] },
-        humidity: { labels: ["Week 1", "Week 2"], values: [55, 60] },
-        health: { labels: ["Plant 1", "Plant 2"], values: [80, 60] },
+        name: "Summer Grow 2024",
+        objective: "Max Yield",
         plants: [
-            { name: "OG Kush", type: "indica", healthScore: 85 },
-            { name: "Blue Dream", type: "sativa", healthScore: 45 }
+            { strain: "OG Kush", stage: "Vegetative Week 3", type: "Auto", health: "Healthy" },
+            { strain: "Blue Dream", stage: "Flowering Week 2", type: "Photoperiod", health: "Yellowing leaves" }
         ]
     });
 });
 
-// Default route for server status
-app.get("/", (req, res) => {
-    res.send("Server is running!");
+// Endpoint: Strains
+app.get('/api/strains', (req, res) => {
+    res.json([
+        {
+            name: "OG Kush",
+            genetics: "Indica-dominant",
+            thc_content: "20-25%",
+            cbd_content: "0.5-1%",
+            effects: ["Relaxed", "Happy", "Sleepy"],
+            flavors: ["Earthy", "Pine", "Citrus"]
+        },
+        {
+            name: "Blue Dream",
+            genetics: "Sativa-dominant",
+            thc_content: "18-22%",
+            cbd_content: "1%",
+            effects: ["Uplifted", "Creative", "Relaxed"],
+            flavors: ["Berry", "Sweet", "Earthy"]
+        }
+    ]);
+});
+
+// Endpoint: Analytics
+app.get('/api/analytics', (req, res) => {
+    res.json({
+        labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
+        data: [5, 10, 15, 20]
+    });
 });
 
 // Start the server
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });

@@ -4,84 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cannabis Grow Assistant</title>
-    <style>
-        :root {
-            --background-color: #f5f5f5;
-            --header-color: #4caf50;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--background-color);
-        }
-        header {
-            background-color: var(--header-color);
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        .dashboard {
-            padding: 20px;
-        }
-        .card {
-            background: white;
-            border-radius: 10px;
-            padding: 15px;
-            margin: 10px 0;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .card h3 {
-            margin: 0 0 10px;
-        }
-        .card ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        .card ul li {
-            margin: 5px 0;
-            font-size: 14px;
-            color: #555;
-        }
-        h3 {
-            color: #333;
-        }
-        .nav-bar {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background-color: var(--header-color);
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-        }
-        .nav-bar a {
-            color: white;
-            text-decoration: none;
-            font-size: 16px;
-        }
-        .hidden {
-            display: none;
-        }
-        .search-bar {
-            margin-bottom: 20px;
-        }
-        .search-bar input {
-            padding: 10px;
-            width: 80%;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-right: 10px;
-        }
-        .search-bar button {
-            padding: 10px 20px;
-            background-color: var(--header-color);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
+<link rel="stylesheet" href="styles.css">
+
 </head>
 <body>
     <header>
@@ -189,83 +113,8 @@
         <a href="#" data-tab="options">Options</a>
     </div>
 
-    <script>
-        const grows = []; // Mock grows array
-        const tasks = []; // Mock tasks array
-        const posts = []; // Mock posts array
-        const strains = [
-            {
-                name: "Amnesia Haze",
-                genetics: "Sativa",
-                thc_content: "22%",
-                cbd_content: "0.8%",
-                effects: ["Euphoric", "Energetic", "Uplifting"],
-                flavors: ["Citrus", "Earthy", "Lemon"],
-                grow_difficulty: "Difficult",
-                flowering_time: "12 weeks",
-                yield: "High"
-            },
-            {
-                name: "Northern Lights",
-                genetics: "Indica",
-                thc_content: "18%",
-                cbd_content: "Low",
-                effects: ["Relaxed", "Happy", "Sleepy"],
-                flavors: ["Pine", "Earthy", "Sweet"],
-                grow_difficulty: "Easy",
-                flowering_time: "7-8 weeks",
-                yield: "High"
-            }
-        ];
+<<script src="app.js" defer></script>
 
-        function displayStrains(filter = "") {
-            const strainList = document.getElementById("strain-list");
-            strainList.innerHTML = ""; // Clear existing list
 
-            const filteredStrains = strains.filter(strain =>
-                strain.name.toLowerCase().includes(filter.toLowerCase())
-            );
-
-            filteredStrains.forEach(strain => {
-                const li = document.createElement("li");
-                li.innerHTML = `
-                    <strong>${strain.name}</strong> - ${strain.genetics}
-                    <ul>
-                        <li><strong>THC:</strong> ${strain.thc_content}</li>
-                        <li><strong>CBD:</strong> ${strain.cbd_content}</li>
-                        <li><strong>Effects:</strong> ${strain.effects.join(", ")}</li>
-                        <li><strong>Flavors:</strong> ${strain.flavors.join(", ")}</li>
-                        <li><strong>Difficulty:</strong> ${strain.grow_difficulty}</li>
-                        <li><strong>Flowering Time:</strong> ${strain.flowering_time}</li>
-                        <li><strong>Yield:</strong> ${strain.yield}</li>
-                    </ul>
-                `;
-                strainList.appendChild(li);
-            });
-        }
-
-        function searchStrains() {
-            const filter = document.getElementById("strain-search").value;
-            displayStrains(filter);
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            document.querySelectorAll(".nav-bar a").forEach(link => {
-                link.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    const tabId = link.getAttribute("data-tab");
-
-                    // Hide all tabs
-                    document.querySelectorAll(".tab-content").forEach(tab => tab.classList.add("hidden"));
-
-                    // Show selected tab
-                    document.getElementById(tabId).classList.remove("hidden");
-                });
-            });
-
-            // Load initial strains
-            displayStrains();
-        });
-    </script>
 </body>
 </html>
